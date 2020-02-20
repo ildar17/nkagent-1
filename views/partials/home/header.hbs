@@ -1,0 +1,30 @@
+<header>
+  <nav class="navbar-fixed-top hidden-xs hidden-sm ">
+    <div class="header-nav">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="row">
+            <div class="col-sm-6 slogan-padding">
+              <span class="slogan-header">Общегородской прайс риелторов Нижнекамска</span>
+            </div>
+
+            <div class="col-sm-5 col-sm-offset-1 login-padding">
+              {{#if _locals.user }}
+                <span class="text-lowercase"><i>{{ _locals.user }}</i></span>
+                <b><a class="login-margin" href="/admin/logout">Выйти</a></b>
+                <b><a class="login-margin" href="/admin/template/admin">Личный кабинет</a></b>
+              {{else}}
+                <b><a href="/admin/login">Войти</a></b>
+                <!--<b><a class="login-margin" href="/admin/register">Регистрация</a></b>-->
+              {{/if}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+

@@ -1,0 +1,54 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>template/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{title}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+			<div class="form-group">
+				<fieldset class="the-fieldset first">
+					<legend class="the-legend">Добавить разделы в блок разделов</legend>
+					<form class="form-horizontal admin" action="" method="post">
+						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+						<div class="form-group-sm">
+							<label class="col-sm-3 control-label">Название блока разделов:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="{{template}}[titleBlocks]" value="{{blockTitle}}">
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<label class="col-sm-3 control-label">Псевдоним блока разделов:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="{{template}}[aliasBlocks]" value="{{blockAlias}}">
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<label class="col-sm-3  control-label">K блоку разделов присвоить раздел:</label>
+							<div class="col-sm-4">
+								<select class="form-control" name="{{template}}[selectSections]">
+									{{{sections}}}
+								</select>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<div class="col-sm-offset-3 col-sm-4">
+								<button type="submit" class="btn btn-success" name="{{template}}[createSections]" value="Добавить раздел">Добавить раздел</button>
+								<a href="/admin/template/{{template}}" class="btn btn-warning btn-margins" role="button">Закрыть форму</a>
+							</div>
+						</div>
+					</form>
+				</fieldset>
+			</div>
+      {{{block}}}
+		</div>
+	</div>
+</div>

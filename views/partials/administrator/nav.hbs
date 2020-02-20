@@ -1,0 +1,42 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/admin/template/admin"><span class="panel-administrator">Administrator</span></a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			{{#if administrator}}
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Администратор <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="/admin/administrator/section-name">Переименование разделов</a></li>
+							<li><a href="/admin/administrator/create-role">Создание роли</a></li>
+							<li><a href="/admin/administrator/configure-access">Настроить права доступа</a></li>
+							<li><a href="/admin/administrator/assign-role">Присвоение роли</a></li>
+							<li><a href="/admin/administrator/settings">Настройки сайта</a></li>
+							<li><a href="/admin/administrator/sql">Запросы SQL</a></li>
+              <li><a href="/admin/administrator/helper">Помошник</a></li>
+							<li><a href="/admin/administrator/earth">Планета Земля</a></li>
+              <li><a href="/admin/administrator/parser">Парсер, Квартиры</a></li>
+              <li><a href="/admin/administrator/parser-cottages">Парсер, Дома, Коттеджи</a></li>
+              <li><a href="/admin/administrator/parser-commercial">Парсер, Коммерческая недвижимость</a></li>
+						</ul>
+					</li>
+				</ul>
+			{{/if}}
+			<ul class="nav navbar-nav navbar-right">
+				<li><span class="mailUserAdministrator">{{user}}</span></li>
+				<li><a href='/admin/logout'>Выход</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>

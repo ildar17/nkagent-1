@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {{>template/sidebar}}
+    </div>
+    <div class="col-md-10">
+      <h1>{{{title}}}</h1>
+      {{#if flash}}
+        <div class="alert alert-dismissible alert-{{flash.type}}">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>{{flash.intro}}</strong> {{{flash.message}}}
+        </div>
+      {{/if}}
+    </div>
+    {{#if yesPage}}
+      <div class="col-md-10">
+        <div class="form-group">
+
+          <fieldset class="the-fieldset first">
+            {{#if action.create}}
+              <legend class="the-legend">Наполнить главную страницу</legend>{{/if}}
+            {{#if action.edit}}
+              <legend class="the-legend">Править главную страницу</legend>{{/if}}
+
+            <form class="form-horizontal admin" action="" method="post">
+              <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+              <div class="form-group-sm{{#if repeatData.errTitle}} has-error{{/if}}">
+                <label class="col-sm-2 control-label">Заголовок Title:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" name="{{template}}[title]"
+                         {{#if repeatData}}value="{{repeatData.title}}"{{else}}
+                           {{#if formValue}}value="{{formValue.title}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errH1}} has-error{{/if}}">
+                <label class="col-sm-2 control-label">Заголовок H1:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" name="{{template}}[h1]"
+                         {{#if repeatData}}value="{{repeatData.h1}}"{{else}}
+                           {{#if formValue}}value="{{formValue.h1}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errContent}} has-error{{/if}}">
+                <label class="col-sm-2 control-label">Контент:</label>
+                <div class="col-sm-9">
+								<textarea rows="15" id="mytextarea" name="{{template}}[content]" class="form-control">
+                  {{#if repeatData}}{{{repeatData.content}}}{{else}}
+                    {{#if formValue}}{{{formValue.content}}}{{/if}}{{/if}}
+                </textarea>
+
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="form-group-sm">
+                  <div class="col-sm-offset-2 col-sm-4">
+                    {{#if action.create}}
+                      <button type="submit" class="btn btn-success btn-margin" name="{{template}}[create]" value="Сохранить">Сохранить</button>
+                    {{/if}}
+                    {{#if action.edit}}
+                      <button type="submit" class="btn btn-primary btn-margin" name="{{template}}[edit]" value="Править">Править</button>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </form>
+          </fieldset>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</div>

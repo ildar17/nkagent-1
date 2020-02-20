@@ -1,0 +1,58 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>template/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{title}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+			<div class="form-group">
+				<fieldset class="the-fieldset first">
+					<legend class="the-legend">Прикрепить раздел к шаблону</legend>
+					<form class="form-horizontal admin" action="" method="post">
+						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+						<div class="form-group-sm">
+							<label class="col-sm-3 control-label">Название раздела:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="{{template}}[titleSection]"
+								       value="{{sectionTitle}}">
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<label class="col-sm-3 control-label">Псевдоним раздела:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="{{template}}[aliasSection]"
+								       value="{{sectionAlias}}">
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<label class="col-sm-3  control-label">Присвоить раздел к шаблону:</label>
+							<div class="col-sm-4">
+								<select class="form-control" name="{{template}}[selectTemplate]">
+									{{{temp}}}
+								</select>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<div class="col-sm-offset-3 col-sm-4">
+								<button type="submit" class="btn btn-success" name="{{template}}[createTemplate]"
+								        value="Прикрепить раздел">Прикрепить раздел</button>
+								<a href="/admin/template/{{template}}" class="btn btn-warning btn-margins"
+								   role="button">Закрыть форму</a>
+							</div>
+						</div>
+					</form>
+				</fieldset>
+			</div>
+      {{{sections}}}
+		</div>
+	</div>
+</div>

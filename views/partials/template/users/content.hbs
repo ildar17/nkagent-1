@@ -1,0 +1,114 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>template/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{title}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+			{{#if form}}
+			<div class="form-group">
+				<fieldset class="the-fieldset first">
+					{{#if action.create}}<legend class="the-legend">Добавить пользователя</legend>{{/if}}
+					{{#if action.edit}}<legend class="the-legend">Править данные пользователя</legend>{{/if}}
+					{{#if action.drop}}<legend class="the-legend">Удалить пользователя</legend>{{/if}}
+					<form class="form-horizontal admin" action="" method="post">
+						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+
+            <div class="form-group-sm{{#if repeatData.errPaymentPrice}} has-error{{/if}}">
+              <label class="col-sm-3 control-label">Оплата за прайс:</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Только цифры" name="{{template}}[paymentPrice]"
+                       {{#if repeatData}}value="{{repeatData.paymentPrice}}"{{else}}
+                         {{#if formValue}}value="{{formValue.paymentPrice}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group-sm{{#if repeatData.errEmail}} has-error{{/if}}">
+							<label class="col-sm-3 control-label"><span class="star">*</span> E-mail:</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" name="{{template}}[email]"
+									{{#if repeatData}}value="{{repeatData.email}}"{{else}}
+									{{#if formValue}}value="{{formValue.email}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						{{#unless action.edit}}
+							{{#unless action.drop}}
+						<div class="form-group-sm{{#if repeatData.errPass}} has-error{{/if}}">
+							<label class="col-sm-3 control-label"><span class="star">*</span> Пароль:</label>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" name="{{template}}[pass]"
+									{{#if repeatData}} value="{{repeatData.pass}}"{{else}}value="{{idUsers}}"{{/if}}>
+							</div>
+						</div>
+						{{/unless}}{{/unless}}
+						<div class="clearfix"></div>
+						<div class="form-group-sm{{#if repeatData.errFio}} has-error{{/if}}">
+							<label class="col-sm-3 control-label">Ф.И.О:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="{{template}}[fio]"
+							       {{#if repeatData}}value="{{repeatData.fio}}"{{else}}
+							       {{#if formValue}}value="{{formValue.fio}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+
+            <div class="clearfix"></div>
+						<div class="form-group-sm{{#if repeatData.errTel}} has-error{{/if}}">
+							<label class="col-sm-3 control-label">Телефон:</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="+7xxxxxxxxxx" name="{{template}}[tel]"
+									{{#if repeatData}}value="{{repeatData.tel}}"{{else}}
+                    {{#if formValue}}value="{{formValue.tel}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+
+            <div class="clearfix"></div>
+						<div class="form-group-sm{{#if repeatData.errAgency}} has-error{{/if}}">
+							<label class="col-sm-3  control-label">Присвоить агенство:</label>
+							<div class="col-sm-3">
+								<select class="form-control" name="{{template}}[agency]">
+									{{{selectAgency}}}
+								</select>
+							</div>
+						</div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm{{#if repeatData.errNote}} has-error{{/if}}">
+              <label class="col-sm-3 control-label">Примечание:</label>
+              <div class="col-sm-3">
+                <textarea name="{{template}}[note]" class="form-control">{{{formValue.note}}}{{#if repeatData}}{{repeatData.note}}{{/if}}</textarea>
+              </div>
+            </div>
+
+
+
+            <div class="clearfix"></div>
+						<div class="form-group-sm">
+							<div class="col-sm-offset-3 col-sm-4 btn-margin">
+								{{#if action.create}}<button type="submit" class="btn btn-success" name="{{template}}[create]" value="Добавить пользователя">Добавить пользователя</button>{{/if}}
+								{{#if action.edit}}
+                  <button type="submit" class="btn btn-primary" name="{{template}}[edit]" value="Править">Править</button>
+									<a href="/admin/template/{{template}}{{{backward}}}" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+								{{/if}}
+								{{#if action.drop}}
+                  <button type="submit" class="btn btn-danger" name="{{template}}[drop]" value="Удалить">Удалить</button>
+									<a href="/admin/template/{{template}}{{{backward}}}" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+								{{/if}}
+							</div>
+						</div>
+					</form>
+				</fieldset>
+			</div>
+			{{/if}}
+			{{{tableUsers}}}
+		</div>
+	</div>
+</div>

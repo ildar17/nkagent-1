@@ -1,0 +1,42 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>administrator/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{title}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+			<div class="form-group">
+				<fieldset class="the-fieldset first">
+					<legend class="the-legend">Запрос к базе данных PostgreSQL, вывод данных</legend>
+					<form class="form-horizontal admin" action="" method="post">
+						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+						<textarea name="sql[query]" class="form-control" rows="4">{{{_viewsQuery}}}</textarea>
+
+						<p class="sqlp">
+							<input type="radio" name="sql[horizontally]" value="1" checked><span class="sql">горизонтально</span>
+							<input type="radio" name="sql[horizontally]" value="0"><span class="sql">вертикально</span>
+
+						<button type="submit" class="btn btn-success" name="sql[create]" value="Обновить
+						страницу">Отправить запрос</button>
+						<a href="/admin/administrator/sql" class="btn btn-warning btn-margins" role="button">Обновить
+							страницу</a>
+						</p>
+						{{{table}}}
+					</form>
+				</fieldset>
+			</div>
+
+				{{{archive}}}
+
+				{{{notebook}}}
+
+		</div>
+	</div>
+</div>

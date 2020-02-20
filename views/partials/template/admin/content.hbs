@@ -1,0 +1,220 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {{>template/sidebar}}
+    </div>
+    <div class="col-md-10">
+      <h1>{{title}}</h1>
+      <div class="form-group">
+        {{#if yesPage}}
+          <div class="jumbotron">
+
+            <div class="btn btn-primary" data-toggle="modal" data-target="#listRealty">Список недвижимости</div>
+            <div style="margin-left: 15px" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Список статей</div>
+            <div style="margin-left: 15px" class="btn btn-primary" data-toggle="modal" data-target="#message">Отправить сообщение</div>
+            {{#if formDrop}}
+              <button style="margin-left: 15px" data-toggle="modal" data-target="#dropUser" class="btn btn-danger" value="Удалить личный кабинет">Удалить личный
+                кабинет
+              </button>
+            {{/if}}
+
+
+          </div>
+
+          <div class="modal fade" id="listRealty">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Количество внесённых объектов</h4>
+                </div>
+                <div class="modal-body">
+                  {{{tableRealty}}}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+
+          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title" id="myLargeModalLabel">Сводный список статей по всем разделам</h4>
+                </div>
+                <div class="modal-body">
+                  {{{tableArticle}}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="message">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Cообщение администратору, программисту nkagent.ru</h4>
+                </div>
+
+                <div class="modal-body">
+                  <div class="form-group-sm">
+                    <div class="col-sm-6">
+                      <select form="editUser" class="form-control" name="admin[toWhom]">
+                        <option value="1">Администратору</option>
+                        <option value="2">Программисту</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <textarea form="editUser" rows="3" name="admin[message]" class="form-control"></textarea>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                  <button type="submit" form="editUser" name="admin[createMessage]" value="message" class="btn btn-success">Отправить</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+          <div class="modal fade" id="dropUser">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Подтвердите удаление личного кабинета</h4>
+                </div>
+                <div class="modal-body">
+                  <h5>Внимание! Будут удалены все Ваши учётные данные, все объекты недвижимости, статьи не удаляются.</h5>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                  <button type="submit" form="editUser" name="admin[drop]" value="1" class="btn btn-danger">Удалить</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+          {{#if flash}}
+            <div class="alert alert-dismissible alert-{{flash.type}}">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>{{flash.intro}}</strong> {{{flash.message}}}
+            </div>
+          {{/if}}
+
+          {{#if form}}
+            <fieldset class="the-fieldset">
+              <legend class="the-legend">Править учётные данные</legend>
+              <form id="editUser" class="form-horizontal admin" action="" method="post">
+                <input form="editUser" id="csrf" type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+
+                <div class="form-group-sm">
+                  <div class="clearfix"></div>
+                  <div id="imgError" class="alert close alert-danger alert-dismissible">
+                    <p id="alertStr"></p>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm">
+                    <label class="col-sm-3 control-label">Фотография:</label>
+                    <div class="col-sm-3 photoAdmin ">
+                      <div id="insertImg" class="row"></div>
+                      <div id="btnSelect" class="row">
+                        <div class="col-lg-12">
+                          <div class="fileinput fileinput-new" data-provides="fileinput">
+                      <span class="btn btn-primary btn-file">
+                        <span class="fileinput-new">Выбрать</span>
+                        <span class="fileinput-exists">Другое</span>
+                        <input id="the-file" name="file" type="file">
+                      </span>
+                            <span class="fileinput-filename"></span>
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                            <button class="btn btn-success fileinput-exists" onclick="saveImgAdmin(); return false">Сохранить</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm{{#if repeatData.errEmail}} has-error{{/if}}">
+                    <label class="col-sm-3 control-label"><span class="star">*</span> Почтовый ящик:</label>
+                    <div class="col-sm-3">
+                      <input form="editUser" type="text" class="form-control" name="admin[email]"
+                        {{#if repeatData}} value="{{repeatData.email}}"{{else}}{{#if email}} value="{{email}}"{{/if}}{{/if}}>
+                    </div>
+                    <span class="help-block">После замены почтового ящика, Вам на новый почтовый ящик придёт запрос с ссылкой на изменениерегистрационных данных. Ссылка будет действительна в течении {{dateEmail}}
+                      минут.</span>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm{{#if repeatData.errPass}} has-error{{/if}}">
+                    <label class="col-sm-3 control-label">Пароль:</label>
+                    <div class="col-sm-3">
+                      <input form="editUser" type="password" name="admin[pass]" class="form-control" placeholder="Введите новый пароль"
+                        {{#if repeatData}} value="{{repeatData.pass}}"{{/if}}>
+                    </div>
+                    <span class="help-block help-block-mail"> Внимание! Если Вам не нужно менять пароль, оставьте поле пустым.</span>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm{{#if repeatData.errFio}} has-error{{/if}}">
+                    <label class="col-sm-3 control-label">Ваше Ф.И.O:</label>
+                    <div class="col-sm-4">
+                      <input form="editUser" type="text" class="form-control" name="admin[fio]"
+                        {{#if repeatData}} value="{{repeatData.fio}}"{{else}}{{#if fio}}
+                             value="{{fio}}"{{/if}}{{/if}}>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm{{#if repeatData.errTel}} has-error{{/if}}">
+                    <label class="col-sm-3 control-label">Телефон:</label>
+                    <div class="col-sm-3">
+                      <input form="editUser" type="tel" class="form-control" name="admin[tel]" placeholder="+7xxxxxxxxxx"
+                        {{#if repeatData}} value="{{repeatData.tel}}"{{else}}{{#if tel}}
+                             value="{{tel}}"{{/if}}{{/if}}>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm{{#if repeatData.errNote}} has-error-note{{/if}}">
+                    <label class="col-sm-3 control-label">Примечание:</label>
+                    <div class="col-sm-7">
+                  <textarea form="editUser" name="admin[note]" class="form-control">{{#if repeatData}}{{{repeatData.note}}}{{else}}{{#if
+                    note}}{{{note}}}{{/if}}{{/if}}</textarea>
+                      <script>
+                        CKEDITOR.replace('admin[note]');
+                      </script>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm">
+                    <div class="col-sm-offset-3 col-sm-9">
+                      <button form="editUser" type="submit" class="btn btn-primary btn-margin" name="admin[edit]" value="Править личные данные">Править
+                        личные
+                        данные
+                      </button>
+                      <a style="margin-left: 15px; margin-top: 5px" href="/admin/template/admin" class="btn btn-warning btn-margins" role="button"><span
+                        class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a>
+
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+          {{/if}}
+          <fieldset class="the-fieldset first">
+            <legend class="the-legend">Права доступа к разделам</legend>
+            {{{accessUser}}}
+          </fieldset>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

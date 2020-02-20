@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {{>template/sidebar}}
+    </div>
+    <div class="col-md-10">
+      <h1>{{title}}</h1>
+      {{#if flash}}
+        <div class="alert alert-dismissible alert-{{flash.type}}">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>{{flash.intro}}</strong> {{{flash.message}}}
+        </div>
+      {{/if}}
+      {{#if yesPage}}
+          {{#if form}}
+          <div class="form-group">
+            <fieldset class="the-fieldset first">
+              <legend class="the-legend">Добавить раздел</legend>
+              <form class="form-horizontal admin" action="" method="post">
+                <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+                <div class="form-group-sm{{#if repeatData.errTitle}} has-error{{/if}}">
+                  <label class="col-sm-3 control-label"><span class="star">*</span> Название раздела:</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" name="{{template}}[title]"
+                           {{#if repeatData}}value="{{repeatData.title}}"{{else}}
+                             {{#if formValue}}value="{{formValue.title}}"{{/if}}{{/if}}>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group-sm{{#if repeatData.errAlias}} has-error{{/if}}">
+                  <label class="col-sm-3 control-label">Псевдоним:</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" name="{{template}}[alias]"
+                           {{#if repeatData}}value="{{repeatData.alias}}"{{else}}
+                             {{#if formValue}}value="{{formValue.alias}}"{{/if}}{{/if}}>
+                  </div>
+                </div>
+                {{#if repeatData}}
+                  <input type="radio" name="{{template}}[latin]" value="1"><span class="latin">latin</span>
+                  <input type="radio" name="{{template}}[latin]" value="0" checked><span class="original">original</span>
+                {{else if action.edit}}
+                  <input type="radio" name="{{template}}[latin]" value="1"><span class="latin">latin</span>
+                  <input type="radio" name="{{template}}[latin]" value="0" checked><span class="original">original</span>
+                {{else}}
+                  <input type="radio" name="{{template}}[latin]" value="1" checked><span class="latin">latin</span>
+                  <input type="radio" name="{{template}}[latin]" value="0"><span class="original">original</span>
+                {{/if}}
+
+                <div class="clearfix"></div>
+
+                {{#if publicForm}}
+                  <div class="form-group-sm{{#if repeatData.errLine}} has-error{{/if}}">
+                    <label class="col-sm-3 control-label">Приоритет:</label>
+                    <div class="col-sm-2">
+                      <input type="text" class="form-control" name="{{template}}[line]"
+                             {{#if repeatData}}value="{{repeatData.line}}"{{else}}
+                               {{#if formValue}}value="{{formValue.line}}"{{/if}}{{/if}}>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group-sm">
+                    <label class="col-sm-3  control-label">Публиковать:</label>
+                    <div class="col-sm-2">
+                      <select class="form-control" name="{{template}}[status]">
+                        {{#if formValue}}
+                          <option {{#if formValue.status}}selected{{/if}} value="1">Да</option>
+                          <option {{#unless formValue.status}}selected{{/unless}} value="0">Нет</option>
+                        {{else if repeatData}}
+                          <option {{#if repeatData.status}}selected{{/if}} value="1">Да</option>
+                          <option {{#unless repeatData.status}}selected{{/unless}} value="0">Нет</option>
+                        {{else}}
+                          <option selected value="1">Да</option>
+                          <option value="0">Нет</option>
+                        {{/if}}
+                      </select>
+                    </div>
+                    <div class="clearfix"></div>
+                    <label class="col-sm-3  control-label">На главую:</label>
+                    <div class="col-sm-2">
+                      <select class="form-control" name="{{template}}[main]">
+                        {{#if formValue}}
+                          <option {{#if formValue.main}}selected{{/if}} value="1">Да</option>
+                          <option {{#unless formValue.main}}selected{{/unless}} value="0">Нет</option>
+                        {{else if repeatData}}
+                          <option {{#if repeatData.main}}selected{{/if}} value="1">Да</option>
+                          <option {{#unless repeatData.main}}selected{{/unless}} value="0">Нет</option>
+                        {{else}}
+                          <option value="1">Да</option>
+                          <option selected value="0">Нет</option>
+                        {{/if}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                {{/if}}
+                <div class="form-group-sm">
+                  <div class="col-sm-offset-3 col-sm-4">
+                  {{#if action.create}}<button type="submit" class="btn btn-success" name="{{template}}[create]" value="Сохранить">Сохранить</button>{{/if}}
+                  {{#if action.edit}}
+                    <button type="submit" class="btn btn-primary" name="{{template}}[edit]" value="Править">Править</button>
+                    <a href="/admin/template/{{template}}" class="btn btn-warning btn-margins" role="button">Веруться</a>
+                  {{/if}}
+                  {{#if action.drop}}
+                    <button type="submit" class="btn btn-danger" name="{{template}}[drop]" value="Удалить">Удалить</button>
+                    <a href="/admin/template/{{template}}" class="btn btn-warning btn-margins" role="button">Веруться</a>
+                  {{/if}}
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+        {{/if}}
+        {{{sections}}}
+      {{/if}}
+    </div>
+  </div>
+</div>

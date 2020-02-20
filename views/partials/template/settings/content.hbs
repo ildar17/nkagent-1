@@ -1,0 +1,93 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {{>template/sidebar}}
+    </div>
+    <div class="col-md-10">
+      <h1>{{{title}}}</h1>
+
+      {{#if flash}}
+        <div class="alert alert-dismissible alert-{{flash.type}}">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>{{flash.intro}}</strong> {{{flash.message}}}
+        </div>
+      {{/if}}
+      {{#if yesPage}}
+        <div class="form-group">
+
+          <fieldset class="the-fieldset first">
+            <legend class="the-legend">Установить начальную и конечную дату записи входа для риелтеров</legend>
+            <form class="form-horizontal admin" action="" method="post">
+              <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+              <div class="form-group-sm">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                  {{{resultStrDate}}}
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errStart}} has-error{{/if}}">
+                <label class="col-sm-3 control-label">Начальная дата:</label>
+                <div class="col-sm-3">
+                  <input type="date" class="form-control" placeholder="" name="{{template}}[start]"
+                         {{#if repeatData}}value="{{repeatData.start}}"{{else}}
+                           {{#if formValue}}value="{{formValue.start}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errFinal}} has-error{{/if}}">
+                <label class="col-sm-3 control-label">Конечная дата:</label>
+                <div class="col-sm-3">
+                  <input type="date" class="form-control" placeholder="" name="{{template}}[final]"
+                         {{#if repeatData}}value="{{repeatData.final}}"{{else}}
+                           {{#if formValue}}value="{{formValue.final}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+                <div class="col-sm-offset-3 col-sm-4 btn-margin">
+                  {{#if action.create}}
+                    <button type="submit" class="btn btn-success" name="{{template}}[createDate]" value="Установить дату">Установить дату
+                    </button>{{/if}}
+                </div>
+              </div>
+
+            </form>
+          </fieldset>
+        </div>
+
+        <div class="form-group">
+
+          <fieldset class="the-fieldset first">
+            <legend class="the-legend">Установить город по умолчанию</legend>
+            <form class="form-horizontal admin" action="" method="post">
+              <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+              <div class="form-group-sm{{#if repeatData.errCity}} has-error{{/if}}">
+                <label class="col-sm-3  control-label">Выбрать город по умолчанию:</label>
+                <div class="col-sm-3">
+                  <select class="form-control" name="{{template}}[defaultCity]">
+                    {{{selectCity}}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+                <div class="col-sm-offset-3 col-sm-4 btn-margin">
+                  {{#if action.create}}
+<button type="submit" class="btn btn-success" name="{{template}}[createSity]" value="Установить город по умолчанию">Установить город по умолчанию</button>
+                  {{/if}}
+                </div>
+              </div>
+
+            </form>
+          </fieldset>
+        </div>
+      {{/if}}
+      {{{table}}}
+
+    </div>
+  </div>
+</div>

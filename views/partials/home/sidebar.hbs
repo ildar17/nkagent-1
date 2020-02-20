@@ -1,0 +1,26 @@
+<aside class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
+  <a class="navmenu-brand visible-md visible-lg" href="/">nkagent.ru</a>
+
+  {{#if _locals.user }}
+    <div class="navmenu-brand-login visible-sm visible-xs clearfix">
+      <span class="visible-sm visible-xs text-lowercase"><i>{{ _locals.user }}</i></span>
+      <b><a class="visible-sm visible-xs" href="/admin/logout">Выйти</a></b>
+      <b><a class="visible-sm visible-xs" href="/admin/template/admin">Личный кабинет</a></b>
+    </div>
+
+  {{else}}
+    <div class="navmenu-brand-login visible-sm visible-xs clearfix">
+      <b><a class="visible-sm visible-xs" href="/admin/login">Войти</a></b>
+      <b><a class="visible-sm visible-xs" href="/admin/register">Регистрация</a></b>
+    </div>
+  {{/if}}
+
+
+  <ul class="nav navmenu-nav">
+    {{{listMenu}}}
+  </ul>
+</aside>
+
+
+
+

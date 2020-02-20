@@ -1,0 +1,37 @@
+{
+  "port":8080,
+  "siteName": "localhost:8080",
+  "administrator": "14abcd17@mail.ru",
+  "db": {
+    "user": "ildar",
+    "password": "ildar",
+    "database": "ildar",
+    "port": 5432,
+    "max": 1,
+    "idleTimeoutMillis": 30000
+  },
+  "salt": "secret_salt",
+  "maxAge": 300000000,
+  "dateEmail": 3600000,
+  "dateLogin": 3600000,
+  "allNumInput": 5,
+  "pathRecovery": "/recovery",
+  "pathRegistration": "/registration",
+  "pathRegistrationAdmin": "/regadmin",
+  "mailerFrom": "mail@nkagent.ru",
+  "mailWebMaster": "14abcd17@mail.ru",
+  "mailAdministrator": "nk_rimma@mail.ru",
+
+  "article": {
+    "viewsTemplate": "article",
+    "limit": 10,
+    "linkLimit": 8,
+    "email": "14abcd17@mail.ru"
+  },
+
+  "apartment": {
+    "limit": 20,
+    "linkLimit": 10,
+    "email": "14abcd17@mail.ru"
+  }
+}

@@ -1,0 +1,24 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>administrator/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{{title}}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+
+			{{{table}}}
+
+      <h1>{{{title1}}}</h1>
+
+      {{{table1}}}
+
+		</div>
+	</div>
+</div>

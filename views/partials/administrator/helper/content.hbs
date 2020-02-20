@@ -1,0 +1,228 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {{>administrator/sidebar}}
+    </div>
+    <div class="col-md-10">
+      <h1>{{title}}</h1>
+      {{#if flash}}
+        <div class="alert alert-dismissible alert-{{flash.type}}">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>{{flash.intro}}</strong> {{{flash.message}}}
+        </div>
+      {{/if}}
+
+      <div class="form-group">
+        <fieldset class="the-fieldset first">
+          {{#if action.createDistricts}}<legend class="the-legend">Муниципальные районы, городские округа, сохранить</legend>{{/if}}
+          {{#if action.editDistricts}}<legend class="the-legend">Муниципальные районы, городские округа, править</legend>{{/if}}
+          {{#if action.dropDistricts}}<legend class="the-legend">Муниципальные районы, городские округа, удалить</legend>{{/if}}
+          <form class="form-horizontal admin" action="" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+            <div class="form-group-sm{{#if repeatData.errDistrictsTitle}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"><span class="star">*</span> Название:</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" name="administrator[districtsTitle]"{{#if repeatData}} value="{{repeatData.districtsTitle}}"{{else}}{{#if formValueDistricts}} value="{{formValueDistricts.districts}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm{{#if repeatData.errDistrictsRegion}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"><span class="star">*</span> Присвоить область:</label>
+              <div class="col-sm-3">
+                <select class="form-control" name="administrator[districtsRegion]">
+                  {{{selectRegion}}}
+                </select>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm">
+              <div class="col-sm-offset-4 col-sm-4">
+                {{#if action.createDistricts}}<button type="submit" class="btn btn-success" name="administrator[createDistricts]" value="Сохранить">Сохранить</button>{{/if}}
+                {{#if action.editDistricts}}<button type="submit" class="btn btn-primary" name="administrator[editDistricts]" value="Править">Править</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+                {{#if action.dropDistricts}}<button type="submit" class="btn btn-danger" name="administrator[dropDistricts]" value="Удалить">Удалить</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+              </div>
+            </div>
+
+          </form>
+          <div class="clearfix"></div>
+          {{{tabDistricts}}}
+        </fieldset>
+      </div>
+
+
+      <div class="form-group">
+        <fieldset class="the-fieldset">
+{{#if action.createProject}}<legend class="the-legend">Тип дома, сохранить</legend>{{/if}}
+{{#if action.editProject}}<legend class="the-legend">Тип дома, править</legend>{{/if}}
+{{#if action.dropProject}}<legend class="the-legend">Тип дома, удалить</legend>{{/if}}
+          <form class="form-horizontal admin" action="" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+            <div class="form-group-sm{{#if repeatData.errProjectTitle}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"><span class="star">*</span> Название:</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" name="administrator[projectTitle]"{{#if repeatData}} value="{{repeatData.projectTitle}}"{{else}}{{#if formValueProject}} value="{{formValueProject.title}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm{{#if repeatData.errProjectPriority}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"> Приоритет:</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" name="administrator[projectPriority]"{{#if repeatData}} value="{{repeatData.projectPriority}}"{{else}}{{#if formValueProject}} value="{{formValueProject.priority}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm">
+              <div class="col-sm-offset-4 col-sm-4">
+                {{#if action.createProject}}<button type="submit" class="btn btn-success" name="administrator[createProject]" value="Сохранить">Сохранить</button>{{/if}}
+                {{#if action.editProject}}<button type="submit" class="btn btn-primary" name="administrator[editProject]" value="Править">Править</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+                {{#if action.dropProject}}<button type="submit" class="btn btn-danger" name="administrator[dropProject]" value="Удалить">Удалить</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+              </div>
+            </div>
+
+          </form>
+          <div class="clearfix"></div>
+          {{{tabProject}}}
+        </fieldset>
+      </div>
+      <div class="form-group">
+        <fieldset class="the-fieldset">
+{{#if action.createToilet}}<legend class="the-legend">Санузел, сохранить</legend>{{/if}}
+{{#if action.editToilet}}<legend class="the-legend">Санузел, править</legend>{{/if}}
+{{#if action.dropToilet}}<legend class="the-legend">Санузел, удалить</legend>{{/if}}
+          <form class="form-horizontal admin" action="" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+            <div class="form-group-sm{{#if repeatData.errToiletTitle}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"><span class="star">*</span> Название:</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" name="administrator[toiletTitle]"{{#if repeatData}} value="{{repeatData
+                .toiletTitle}}"{{else}}{{#if formValueToilet}} value="{{formValueToilet.title}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm{{#if repeatData.errToiletPriority}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"> Приоритет:</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" name="administrator[toiletPriority]"{{#if repeatData}} value="{{repeatData
+                .toiletPriority}}"{{else}}{{#if formValueToilet}} value="{{formValueToilet.priority}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm">
+              <div class="col-sm-offset-4 col-sm-4">
+                {{#if action.createToilet}}<button type="submit" class="btn btn-success" name="administrator[createToilet]" value="Сохранить">Сохранить</button>{{/if}}
+                {{#if action.editToilet}}<button type="submit" class="btn btn-primary" name="administrator[editToilet]" value="Править">Править</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+                {{#if action.dropToilet}}<button type="submit" class="btn btn-danger" name="administrator[dropToilet]" value="Удалить">Удалить</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+              </div>
+            </div>
+          </form>
+          <div class="clearfix"></div>
+          {{{tabToilet}}}
+        </fieldset>
+      </div>
+
+      <div class="form-group">
+        <fieldset class="the-fieldset">
+          {{#if action.createMaterial}}<legend class="the-legend">Материал, сохранить</legend>{{/if}}
+          {{#if action.editMaterial}}<legend class="the-legend">Материал, править</legend>{{/if}}
+          {{#if action.dropMaterial}}<legend class="the-legend">Материал, удалить</legend>{{/if}}
+          <form class="form-horizontal admin" action="" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+            <div class="form-group-sm{{#if repeatData.errMaterialTitle}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"><span class="star">*</span> Название:</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" name="administrator[materialTitle]"{{#if repeatData}} value="{{repeatData
+                .MaterialTitle}}"{{else}}{{#if formValueMaterial}} value="{{formValueMaterial.title}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm{{#if repeatData.errMaterialPriority}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"> Приоритет:</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" name="administrator[materialPriority]"{{#if repeatData}} value="{{repeatData
+                .materialPriority}}"{{else}}{{#if formValueMaterial}} value="{{formValueMaterial.priority}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm">
+              <div class="col-sm-offset-4 col-sm-4">
+                {{#if action.createMaterial}}<button type="submit" class="btn btn-success" name="administrator[createMaterial]" value="Сохранить">Сохранить</button>{{/if}}
+                {{#if action.editMaterial}}<button type="submit" class="btn btn-primary" name="administrator[editMaterial]" value="Править">Править</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+                {{#if action.dropMaterial}}<button type="submit" class="btn btn-danger" name="administrator[dropMaterial]" value="Удалить">Удалить</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+              </div>
+            </div>
+          </form>
+          <div class="clearfix"></div>
+          {{{tabMaterial}}}
+        </fieldset>
+      </div>
+      <div class="form-group">
+        <fieldset class="the-fieldset">
+          {{#if action.createCategoryLand}}<legend class="the-legend">Категория земель, сохранить</legend>{{/if}}
+          {{#if action.editCategoryLand}}<legend class="the-legend">Категория земель, править</legend>{{/if}}
+          {{#if action.dropCategoryLand}}<legend class="the-legend">Категория земель, удалить</legend>{{/if}}
+          <form class="form-horizontal admin" action="" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+            <div class="form-group-sm{{#if repeatData.errCategoryLandTitle}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"><span class="star">*</span> Название:</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" name="administrator[categoryLandTitle]"{{#if repeatData}} value="{{repeatData.categoryLandTitle}}"{{else}}{{#if formValueCategoryLand}} value="{{formValueCategoryLand.title}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm{{#if repeatData.errCategoryLandPriority}} has-error{{/if}}">
+              <label class="col-sm-4 control-label"> Приоритет:</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" name="administrator[categoryLandPriority]"{{#if repeatData}} value="{{repeatData.categoryLandPriority}}"{{else}}{{#if formValueCategoryLand}} value="{{formValueCategoryLand.priority}}"{{/if}}{{/if}}>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="form-group-sm">
+              <div class="col-sm-offset-4 col-sm-4">
+                {{#if action.createCategoryLand}}<button type="submit" class="btn btn-success" name="administrator[createCategoryLand]" value="Сохранить">Сохранить</button>{{/if}}
+                {{#if action.editCategoryLand}}<button type="submit" class="btn btn-primary" name="administrator[editCategoryLand]" value="Править">Править</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+                {{#if action.dropCategoryLand}}<button type="submit" class="btn btn-danger" name="administrator[dropCategoryLand]" value="Удалить">Удалить</button>
+                  <a href="/admin/administrator/helper" class="btn btn-warning btn-margins" role="button">Вернуться</a>
+                {{/if}}
+              </div>
+            </div>
+          </form>
+          <div class="clearfix"></div>
+          {{{tabCategoryLand}}}
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

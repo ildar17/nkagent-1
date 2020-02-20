@@ -1,0 +1,277 @@
+
+<script src="/parser/xlsx.full.min.js"></script>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>administrator/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{{title}}}</h1>
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title" id="myLargeModalLabel">Выбор городов и поселений.</h4>
+            </div>
+            <div class="modal-body">
+              {{{cityList}}}
+            </div>
+          </div>
+        </div>
+      </div>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+
+			{{#if formValue}}
+				<div class="form-group">
+					<fieldset class="the-fieldset first">
+						<legend class="the-legend">Отправить в базу данных</legend>
+						<form class="form-horizontal admin" action="" method="post">
+
+							<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+              <div class="form-group-sm{{#if repeatData.errType}} has-error{{/if}}">
+                <label class="col-sm-2 control-label"><span class="star">*</span> Тип объявления:</label>
+                <div class="col-sm-3">
+                  <select class="form-control" name="administrator[type]">
+                    {{{selectType}}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errSection}} has-error{{/if}}">
+                <label class="col-sm-2 control-label"><span class="star">*</span> Раздел:</label>
+                <div class="col-sm-3">
+                  <select class="form-control" name="administrator[section]">
+                    {{{selectSection}}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+                <label class="col-sm-2 control-label"><span class="star">*</span> Владелец объявления:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="administrator[tel]" value="{{formValue.tel}}">
+                </div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errAgent}} has-error{{/if}}">
+                <div class="col-sm-3">
+                  <select class="form-control" name="administrator[agent]">
+                    {{{selectAgents}}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+								<label class="col-sm-2 control-label"><span class="star">*</span> Выбрать улицу:</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="administrator[oldstreet]" value="{{formValue.street}}">
+								</div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errStreet}} has-error{{/if}}">
+								<div class="col-sm-3">
+									<select class="form-control" name="administrator[street]">
+										{{{selectEndStreet}}}
+									</select>
+								</div>
+              </div>
+
+							<div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errHouse}} has-error{{/if}}">
+								<label class="col-sm-2 control-label">Дом:</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="administrator[house]"
+									       {{#if repeatData}}value="{{repeatData.house}}"{{else}}
+										       {{#if formValue}}value="{{formValue.house}}"{{/if}}{{/if}}>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errLiter}} has-error{{/if}}">
+								<label class="col-sm-2 control-label">Литер:</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="administrator[liter]"
+									       {{#if repeatData}}value="{{repeatData.liter}}"{{else}}
+										       {{#if formValue}}value="{{formValue.liter}}"{{/if}}{{/if}}>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+							<div class="form-group-sm">
+								<label class="col-sm-2 control-label"><span class="star">*</span> Этаж\Этажность:</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="administrator[oldstorey]"
+									       {{#if repeatData}}value="{{formValue.storey}}"{{else}}
+										       {{#if formValue}}value="{{formValue.storey}}"{{/if}}{{/if}}>
+								</div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errStorey}} has-error{{/if}}">
+								<div class="col-sm-1">
+									<input type="text" class="form-control" name="administrator[storey]"
+									       {{#if repeatData}}value="{{repeatData.storey}}"{{else}}
+										       {{#if formValue}}value="{{endstorey}}"{{/if}}{{/if}}>
+								</div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errNumstorey}} has-error{{/if}}">
+								<div class="col-sm-1">
+									<input type="text" class="form-control" name="administrator[numstorey]"
+									       {{#if repeatData}}value="{{repeatData.numstorey}}"{{else}}
+										       {{#if formValue}}value="{{endnumstorey}}"{{/if}}{{/if}}>
+								</div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+                <label class="col-sm-2 control-label"> Цена:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="administrator[oldprice]"
+                         {{#if repeatData}}value="{{priceOld}}"{{else}}
+                           {{#if formValue}}value="{{priceOld}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errPrice}} has-error{{/if}}">
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="administrator[price]"
+                         {{#if repeatData}}value="{{repeatData.price}}"{{else}}
+                           {{#if formValue}}value="{{formValue.price}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+                <label class="col-sm-2 control-label">Площ. общ\жил\кух:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="administrator[area]"
+                         {{#if repeatData}}value="{{formValue.area}}"{{else}}
+                           {{#if formValue}}value="{{formValue.area}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errArea1}} has-error{{/if}}">
+                <div class="col-sm-1">
+                  <input type="text" class="form-control" name="administrator[area1]"
+                         {{#if repeatData}}value="{{repeatData.area1}}"{{else}}
+                           {{#if formValue}}value="{{area1}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errArea2}} has-error{{/if}}">
+                <div class="col-sm-1">
+                  <input type="text" class="form-control" name="administrator[area2]"
+                         {{#if repeatData}}value="{{repeatData.area2}}"{{else}}
+                           {{#if formValue}}value="{{area2}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errArea3}} has-error{{/if}}">
+                <div class="col-sm-1">
+                  <input type="text" class="form-control" name="administrator[area3]"
+                         {{#if repeatData}}value="{{repeatData.area3}}"{{else}}
+                           {{#if formValue}}value="{{area3}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+                <label class="col-sm-2 control-label">Опека:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="administrator[oldop]"
+                         {{#if repeatData}}value="{{formValue.op}}"{{else}}
+                           {{#if formValue}}value="{{formValue.op}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errOp}} has-error{{/if}}">
+                <div class="col-sm-2">
+                  <select class="form-control" name="administrator[op]">
+                    {{{selectOp}}}
+                  </select>
+                </div>
+              </div>
+
+
+							<div class="clearfix"></div>
+              <div class="form-group-sm">
+								<label class="col-sm-2 control-label">Тип дома:</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="administrator[oldproject]"
+									       {{#if repeatData}}value="{{formValue.project}}"{{else}}
+										       {{#if formValue}}value="{{formValue.project}}"{{/if}}{{/if}}>
+								</div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errProject}} has-error{{/if}}">
+								<div class="col-sm-3">
+									<select class="form-control" name="administrator[project]">
+										{{{selectProject}}}
+									</select>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+              <div class="form-group-sm">
+								<label class="col-sm-2 control-label">с/у:</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="administrator[oldtoilet]"
+									       {{#if repeatData}}value="{{formValue.toilet}}"{{else}}
+										       {{#if formValue}}value="{{formValue.toilet}}"{{/if}}{{/if}}>
+								</div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errToilet}} has-error{{/if}}">
+								<div class="col-sm-3">
+									<select class="form-control" name="administrator[toilet]">
+										{{{selectToilet}}}
+									</select>
+								</div>
+							</div>
+
+              <div class="clearfix"></div>
+              <div class="form-group-sm">
+                <label class="col-sm-2 control-label">Балкон:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="administrator[oldbalcony]"
+                         {{#if repeatData}}value="{{formValue.balcony}}"{{else}}
+                           {{#if formValue}}value="{{formValue.balcony}}"{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="form-group-sm{{#if repeatData.errBalcony}} has-error{{/if}}">
+                <div class="col-sm-2">
+                  <select class="form-control" name="administrator[balcony]">
+                    {{{selectBalcony}}}
+                  </select>
+                </div>
+              </div>
+
+							<div class="clearfix"></div>
+              <div class="form-group-sm{{#if repeatData.errNote}} has-error{{/if}}">
+								<label class="col-sm-2 control-label">Примечание:</label>
+								<div class="col-sm-3">
+									<textarea type="text" rows="4" class="form-control" name="administrator[note]">{{formValue.note}}</textarea>
+
+
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+							<div class="form-group-sm">
+								<div class="col-sm-offset-2 col-sm-4">
+									<button type="submit" class="btn btn-success" name="administrator[create]" value="Отправить">Отправить</button>
+									<a href="/admin/administrator/parser{{{back}}}" class="btn btn-warning btn-margins" role="button">Закрыть форму</a>
+								</div>
+							</div>
+
+						</form>
+					</fieldset>
+				</div>
+
+
+			{{/if}}
+
+			{{{priceTab}}}
+
+		</div>
+	</div>
+</div>

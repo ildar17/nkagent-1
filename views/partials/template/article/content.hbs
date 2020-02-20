@@ -1,0 +1,176 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>template/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{{title}}}</h1>
+
+      {{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+      {{#if yesPage}}
+			<div class="form-group">
+
+				<fieldset class="the-fieldset first">
+					<legend class="the-legend">Добавить статью</legend>
+					<form class="form-horizontal admin" action="" method="post">
+						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+						<div class="form-group-sm{{#if repeatData.errTitle}} has-error{{/if}}">
+							<label class="col-sm-2 control-label"><span class="star">*</span> Заголовок:</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="{{template}}[title]"
+                       {{#if repeatData}}value="{{repeatData.title}}"{{else}}
+                         {{#if formValue}}value="{{formValue.title}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm{{#if repeatData.errAlias}} has-error{{/if}}">
+							<label class="col-sm-2 control-label">Псевдоним:</label>
+							<div class="col-sm-6">
+<input type="text" class="form-control" name="{{template}}[alias]" placeholder="При выборе latin или ID-node заполнять не нужно, original обязательно."
+                       {{#if repeatData}}value="{{repeatData.alias}}"{{else}}
+                         {{#if formValue}}value="{{formValue.alias}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+            {{#if repeatData}}
+              <input type="radio" name="{{template}}[latin]" value="1"><span class="latin">latin</span>
+              <input type="radio" name="{{template}}[latin]" value="0" checked><span class="original">original</span>
+            {{else if action.edit}}
+              <input type="radio" name="{{template}}[latin]" value="1"><span class="latin">latin</span>
+              <input type="radio" name="{{template}}[latin]" value="0" checked><span class="original">original</span>
+            {{else}}
+              <input type="radio" name="{{template}}[latin]" value="1" checked><span class="latin">latin</span>
+              <input type="radio" name="{{template}}[latin]" value="0"><span class="original">original</span>
+            {{/if}}
+              <input type="radio" name="{{template}}[latin]" value="2"><span class="original">ID-node</span>
+
+						<div class="clearfix"></div>
+						<div class="form-group-sm{{#if repeatData.errDescription}} has-error{{/if}}">
+							<label class="col-sm-2 control-label">Описание:</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="{{template}}[description]"
+                       {{#if repeatData}}value="{{repeatData.description}}"{{else}}
+                         {{#if formValue}}value="{{formValue.description}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						{{#if publicForm}}
+            <div class="form-group-sm{{#if repeatData.errPriority}} has-error{{/if}}">
+							<label class="col-sm-2 control-label">Приоритет:</label>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" name="{{template}}[priority]"
+                       {{#if repeatData}}value="{{repeatData.priority}}"{{else}}
+                         {{#if formValue}}value="{{formValue.priority}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<label class="col-sm-2  control-label">Публиковать:</label>
+							<div class="col-sm-2">
+								<select class="form-control" name="{{template}}[status]">
+                  {{#if formValue}}
+                    <option {{#if formValue.status}}selected{{/if}} value="1">Да</option>
+                    <option {{#unless formValue.status}}selected{{/unless}} value="0">Нет</option>
+                  {{else if repeatData}}
+                    <option {{#if repeatData.status}}selected{{/if}} value="1">Да</option>
+                    <option {{#unless repeatData.status}}selected{{/unless}} value="0">Нет</option>
+                  {{else}}
+                    <option selected value="1">Да</option>
+                    <option value="0">Нет</option>
+                  {{/if}}
+								</select>
+							</div>
+							<div class="clearfix"></div>
+							<label class="col-sm-2  control-label">На главую:</label>
+							<div class="col-sm-2">
+								<select class="form-control" name="{{template}}[main]">
+                  {{#if formValue}}
+                    <option {{#if formValue.main}}selected{{/if}} value="1">Да</option>
+                    <option {{#unless formValue.main}}selected{{/unless}} value="0">Нет</option>
+                  {{else if repeatData}}
+                    <option {{#if repeatData.main}}selected{{/if}} value="1">Да</option>
+                    <option {{#unless repeatData.main}}selected{{/unless}} value="0">Нет</option>
+                  {{else}}
+                    <option value="1">Да</option>
+                    <option selected value="0">Нет</option>
+                  {{/if}}
+								</select>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+            {{/if}}
+            {{{sections}}}
+						<div class="clearfix"></div>
+						<div class="form-group-sm{{#if repeatData.errContent}} has-error{{/if}}">
+							<label class="col-sm-2 control-label"><span class="star">*</span> Контент:</label>
+							<div class="col-sm-9">
+								<textarea name="{{template}}[content]" class="form-control">
+                  {{#if repeatData}}{{{repeatData.content}}}{{else}}
+                  {{#if formValue}}{{{formValue.content}}}{{/if}}{{/if}}</textarea>
+								<script>
+									CKEDITOR.replace( '{{{template}}}[content]' );
+								</script>
+							</div>
+							<div class="col-sm-2">
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<div class="col-sm-offset-2 col-sm-4">
+								{{#if action.create}}<button type="submit" class="btn btn-success btn-margin" name="{{template}}[create]" value="Сохранить">Сохранить</button>{{/if}}
+								{{#if action.edit}}<button type="submit" class="btn btn-primary btn-margin" name="{{template}}[edit]" value="Править">Править</button>{{/if}}
+								{{#if action.drop}}<button type="submit" class="btn btn-danger btn-margin" name="{{template}}[drop]" value="Удалить">Удалить</button>{{/if}}
+                {{#if action.backward}}<a href="{{{back}}}" style="margin-top: 5px" class="btn btn-warning btn-margins" role="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a>{{/if}}
+                {{#if action.edit}}{{{reject}}}
+                <div class="modal fade" id="myModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Обязательно нужно указать причину</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-sm-12">
+                          <div class="form-group-sm">
+                            <textarea name="{{template}}[reject]" class="form-control"></textarea>
+                          </div>
+                          <p><b>Примеры:</b></p>
+                          <p>Ненармативная лексика<p>
+                          <p>Статья не соответствует тематике сайта<p>
+                          <p>Статья не уникальна<p>
+                          <p>Много ключевых фраз<p>
+                          <p>Низкое качество статьи<p>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="modal-footer">
+                        <div class="form-group-sm">
+                          <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" name="{{template}}[submitReject]" value="Отклонить">Отправить причину
+                              отклонения</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                {{/if}}
+              </div>
+						</div>
+
+					</form>
+				</fieldset>
+			</div>
+      {{/if}}
+			{{{table}}}
+
+		</div>
+	</div>
+</div>

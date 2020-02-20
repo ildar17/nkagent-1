@@ -1,0 +1,90 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>administrator/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{{title}}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+
+
+			<div class="form-group">
+				<fieldset class="the-fieldset first">
+					{{#if action.create}}<legend class="the-legend">Добавить область</legend>{{/if}}
+					{{#if action.edit}}<legend class="the-legend">Править область</legend>{{/if}}
+					{{#if action.drop}}<legend class="the-legend">Удалить область</legend>{{/if}}
+
+					<form class="form-horizontal admin" action="" method="post">
+
+						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+						<div class="form-group-sm{{#if repeatData.errTitle}} has-error{{/if}}">
+							<label class="col-sm-3 control-label"><span class="star">*</span> Область:</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" name="administrator[title]"
+								       {{#if repeatData}}value="{{repeatData.title}}"{{else}}
+									       {{#if formValue}}value="{{formValue.title}}"{{/if}}{{/if}}>
+							</div>
+						</div>
+
+						<div class="clearfix"></div>
+						<div class="form-group-sm{{#if repeatData.errAlias}} has-error{{/if}}">
+							<label class="col-sm-3 control-label">Псевдоним:</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" name="administrator[alias]"
+								       {{#if repeatDate}}value="{{repeatData.alias}}"{{/if}}
+									{{#if formValue}}value="{{formValue.alias}}"{{/if}}>
+							</div>
+						</div>
+						{{#if action.edit}}
+							<input type="radio" name="administrator[latin]" value="1"><span class="latin">latin</span>
+							<input type="radio" name="administrator[latin]" value="0" checked><span class="original">original</span>
+						{{else}}
+							<input type="radio" name="administrator[latin]" value="1" checked><span class="latin">latin</span>
+							<input type="radio" name="administrator[latin]" value="0"><span class="original">original</span>
+						{{/if}}
+
+						{{#if action.edit}}
+							<div class="clearfix"></div>
+							<div class="form-group-sm{{#if repeatData.errRegional}} has-error{{/if}}">
+								<label class="col-sm-3  control-label">Выбрать административный центр:</label>
+								<div class="col-sm-3">
+									<select class="form-control" name="administrator[regional]">
+										{{{selectRegion}}}
+									</select>
+								</div>
+							</div>
+						{{/if}}
+
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<div class="col-sm-offset-3 col-sm-3">
+								{{#if action.create}}<button type="submit" class="btn btn-success" name="administrator[create]"
+								                             value="Сохранить">Сохранить</button>{{/if}}
+								{{#if action.edit}}<button type="submit" class="btn btn-primary" name="administrator[edit]"
+								                           value="Править">Править</button>
+									<a href="/admin/administrator/earth?country={{country}}" class="btn btn-warning btn-margins"
+									   role="button">Вернуться</a>
+								{{/if}}
+								{{#if action.drop}}<button type="submit" class="btn btn-danger" name="administrator[drop]"
+								                           value="Удалить">Удалить</button>
+									<a href="/admin/administrator/earth?country={{country}}" class="btn btn-warning btn-margins"
+									   role="button">Вернуться</a>
+								{{/if}}
+							</div>
+						</div>
+
+					</form>
+				</fieldset>
+			</div>
+
+			{{{table}}}
+
+		</div>
+	</div>
+</div>

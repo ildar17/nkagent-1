@@ -1,0 +1,27 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>template/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{{title}}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+			<fieldset class="the-fieldset first">
+				<legend class="the-legend">Присвоить статус модератора</legend>
+
+				{{{table}}}
+
+				<a href="/admin/template/agency" class="btn btn-warning btn-margins"
+				   role="button">Вернуться</a>
+				<a href="/admin/template/agency?party={{party}}&noStatus=1" class="btn btn-success btn-margins"
+				   role="button">Отобрать статус модератора</a>
+
+			</fieldset>
+		</div>
+	</div>
+</div>

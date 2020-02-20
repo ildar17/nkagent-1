@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {{>template/sidebar}}
+    </div>
+    <div class="col-md-10">
+
+      <div class="row">
+        <div class="col-md-12">
+          <h1>
+          <a href="/admin/template/collection" role="button" class="btn btn-primary btn-margins">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
+            {{{title}}}
+          </h1>
+          {{#if flash}}
+            <div class="alert alert-dismissible alert-{{flash.type}}">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>{{flash.intro}}</strong> {{{flash.message}}}
+            </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <fieldset class="the-fieldset">
+            <legend class="the-legend">Сводная информация о подборке в коллекцию</legend>
+            <div class="info_collection">
+              <p>Объктов в коллекции: <b>{{{count}}}</b><a class="btn btn-xs btn-primary btn-margins" role="button"
+                                                           href="/admin/template/collection?pick={{{pick}}}&run=1">Просмотреть, удалить объкты в
+                коллекции</a></p>
+              <p>Примечание для себя: <b>{{{note_my}}}</b></p>
+              <p>Примечание для клиента: <b>{{{note_client}}}</b></p>
+              <p>Настройки: <b>{{{textNoPrice}}}; {{{textNoAgency}}}</b></p>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+        {{#if yesPage}}
+
+          <div class="modal fade bs-example-modal-lg districts-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title" id="myLargeModalLabel">Установить район по умолчанию.</h4>
+                </div>
+                <div class="modal-body">
+                  {{{districts}}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade bs-example-modal-lg city-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title" id="myLargeModalLabel">Установить район по умолчанию.</h4>
+                </div>
+                <div class="modal-body">
+                  {{{city}}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="the-fieldset">
+            <legend class="the-legend">Сортировка</legend>
+            <div class="col-sm-12 form-group-sm">
+
+              <div class="col-sm-offset-2 col-sm-10 paddingBottom">{{{btn}}}</div>
+              <div class="clearfix"></div>
+              <form class="form-horizontal" action="" method="get">
+                <input type="hidden" name="pick" value="{{{pick}}}">
+                <div class="col-sm-2">
+                  <select class="form-control" name="type">
+                    {{{sortingType}}}
+                  </select>
+                </div>
+                <div class="col-sm-2">
+                  <select class="form-control" name="section1">
+                    {{{sortingSection}}}
+                  </select>
+                </div>
+                <div class="col-sm-2">
+                  <select class="form-control" name="street">
+                    {{{sortingStreet}}}
+                  </select>
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" name="min" placeholder="От {{sortingMinPrice}}" value="{{minPrice}}">
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" name="max" placeholder="До {{sortingMaxPrice}}" value="{{maxPrice}}">
+                </div>
+                <button type="submit" name="sorting" value="1" class="btn btn-primary"><b>Сортировать</b></button>
+                <a href="{{{back}}}" title="Очистить настройки" class="btn btn-warning btn-margins" role="button"><span class="glyphicon glyphicon-refresh"
+                                                                                                                        aria-hidden="true"></span></a>
+              </form>
+
+            </div>
+          </fieldset>
+
+          <script src="/vendor/doubleScroll/jquery.doubleScroll.js"></script>
+          <script>
+
+            $(document).ready(function () {
+              $('.table-responsive').doubleScroll();
+              $('#sample2').doubleScroll({resetOnWindowResize: true});
+            });
+
+          </script>
+          <style>
+            #sample2 {
+              width: 100%;
+            }
+          </style>
+
+          {{{table}}}
+
+        {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

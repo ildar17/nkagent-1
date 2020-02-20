@@ -1,0 +1,62 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			{{>administrator/sidebar}}
+		</div>
+		<div class="col-md-10">
+			<h1>{{title}}</h1>
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+			<div class="form-group">
+				<fieldset class="the-fieldset first">
+					<legend class="the-legend">Править роль</legend>
+					<form class="form-horizontal admin" action="" method="post">
+						<input type="hidden" name="_csrf" value="{{_csrfToken}}">
+						<div class="form-group-sm">
+							<label for="inputText3" class="col-sm-4 control-label"> Название роли:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="administrator[nameRole]" id="inputText3"
+								       value="{{nameRole}}">
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group-sm">
+							<label for="inputText3" class="col-sm-4  control-label">Статус роли:</label>
+							<div class="col-sm-4">
+								<select class="form-control" name="administrator[users]">
+									<option {{#unless status}}selected{{/unless}} value="">модератор</option>
+									<option {{#if status}}selected{{/if}} value="1">пользователь после регистрации</option>
+								</select>
+							</div>
+							<span class="help-block">Для пользователей создаётся одна роль, для модераторов ролей
+							создаётся много!</span>
+						</div>
+            <div class="clearfix"></div>
+            <div class="form-group-sm">
+              <label for="inputText3" class="col-sm-4  control-label">Оплата прайса:</label>
+              <div class="col-sm-4">
+                <select class="form-control" name="administrator[payment_price]">
+                  <option {{#if null_payment_price}}selected{{/if}} value="null">по умолчанию</option>
+                  <option {{#if payment_price}}selected{{/if}} value="1">оплатил</option>
+                  <option {{#if no_payment_price}}selected{{/if}} value="2">не оплатил</option>
+                </select>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+						<div class="form-group-sm">
+							<div class="col-sm-offset-4 col-sm-4">
+								<button type="submit" class="btn btn-primary" name="administrator[editRole]" value="Править
+								 роль">Править роль</button>
+								<a href="/admin/administrator/create-role" class="btn btn-warning btn-margins" role="button">Закрыть форму</a>
+							</div>
+						</div>
+					</form>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+{{>home/header}}
+{{>home/nav}}
+<div class="container content">
+  {{#if flash}}
+    <div class="alert alert-dismissible alert-{{flash.type}}">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{{flash.intro}}</strong> {{{flash.message}}}
+    </div>
+  {{/if}}
+  <h1 class="text-center">Восстановление пароля</h1>
+  <div class="auth col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" style="margin-top: 10px">
+    <form class="form-horizontal" action="/admin/recovery" method="post">
+      <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+
+      <div class="form-group{{#if repeatData.errEmail}} has-error{{/if}}">
+        <label for="inputEmail3" class="col-sm-4 control-label">Почтовый ящик</label>
+        <div class="col-sm-8">
+          <input type="email" name="user[email]" class="form-control" id="inputEmail3" placeholder="Email" {{#if
+            repeatData}}value="{{repeatData.email}}"{{/if}}>
+        </div>
+      </div>
+
+      <div class="form-group{{#if repeatData.errSum}} has-error{{/if}}">
+        <label for="inputPassword3" class="col-sm-4 control-label">Сумма двух чисел</label>
+        <div class="col-sm-2">
+          <input type="text" name="user[captcha]" class="form-control" id="inputPassword3">
+        </div>
+        <p>{{{total}}}</p>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+          <button type="submit" class="btn btn-primary btn-margin">Отправить заявку</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{{>home/sidebar}}
+{{>home/footer}}

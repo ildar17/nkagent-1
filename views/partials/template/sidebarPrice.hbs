@@ -1,0 +1,9 @@
+{{#if permit}}
+  <div class="permit">
+    <h3>Права доступа</h3>
+    <form class="permitForm" action="" method="post">
+      <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+      {{{permit}}}
+    </form>
+  </div>
+{{/if}}
